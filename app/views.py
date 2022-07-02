@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from app.models import Book
-from app.serializers import BookSerializer
+from app.models import Author, Book
+from app.serializers import AuthorSerializer, BookSerializer
 
 # Create your views here.
-from rest_framework.generics import CreateAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, ListAPIView, DestroyAPIView
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.exceptions import ValidationError
 
 
 # The librarian should be able to create a new book in the libary's record.
@@ -15,6 +16,20 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 class CreateBook(CreateAPIView):
     model = Book
     serializer_class = BookSerializer
+
+    # Overriding the create() method so that the same book is not
+    # entered twice by the Librarian in the database and also
+    # so that he doesn't have to manually check it, even through
+    # the filtering options.
+    def create(self, request, *args, **kwargs):
+
+        book_name = request.data.get('book_name')
+        instance = Book.objects.filter(book_name= book_name)
+        if instance:
+            raise ValidationError({'book':'The same book has been already added. Please check.'})
+        else:
+            return super().create(request, *args, **kwargs)
+        
 
 
 class ListBooks(ListAPIView):
@@ -29,5 +44,29 @@ class ListBooks(ListAPIView):
         return Book.objects.all()
 
 
-# class DestroyBook(DestroyAPIView):
+class DestroyBook(DestroyAPIView):
+    queryset = Book.objects.all()
+    lookup_field = 'book_name'
+    serializer_class = BookSerializer
+
+
+
+# class CreateAuthor(CreateAPIView):
+#     model = Author
+#     serializer_class = AuthorSerializer
+
+#     # Overriding the create() method so that the same book is not
+#     # entered twice by the Librarian in the database and also
+#     # so that he doesn't have to manually check it, even through
+#     # the filtering options.
+#     def create(self, request, *args, **kwargs):
+
+#         first_name = request.data.get('first_name')
+#         last_name = request.data.get('last_name')
+#         email = request.data.get('email')
+#         instance = Author.objects.filter(first_name= first_name, last_name= last_name, email = email)
+#         if instance:
+#             raise ValidationError({'author':'The same author has been already added. Please check.'})
+#         else:
+#             return super().create(request, *args, **kwargs)
 
