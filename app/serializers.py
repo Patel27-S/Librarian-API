@@ -21,5 +21,9 @@ class EntrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Entry
-        fields = ['book']
+        fields = ['book', 'author']
+
+        # def get_book(self, instance):
+        #     books = Book.objects.filter()
+        #     return BookSerializer(books, many=True).data
 

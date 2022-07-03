@@ -31,7 +31,7 @@ class Book(models.Model):
     description = models.TextField(blank=True)
 
     def __str__(self):
-        return f'{self.name} - {self.category}'
+        return f'{self.book_name} - {self.category}'
 
 
 
@@ -54,4 +54,4 @@ class Entry(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.book.name} - {self.author.first_name} {self.author.last_name}'
+        return f'{self.book.book_name} - {self.author.first_name} {self.author.last_name}'

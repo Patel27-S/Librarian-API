@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from app.models import Author, Book
-from app.serializers import AuthorSerializer, BookSerializer
+from app.models import Author, Book, Entry
+from app.serializers import AuthorSerializer, BookSerializer, EntrySerializer
 
 # Create your views here.
 from rest_framework.generics import CreateAPIView, ListAPIView, DestroyAPIView, RetrieveAPIView, \
@@ -145,3 +145,73 @@ class RetrieveUpdateDestroyAuthor(RetrieveUpdateDestroyAPIView):
     queryset = Author.objects.all()
     lookup_field = 'id'
     serializer_class = AuthorSerializer
+
+
+# Entry Views :-
+
+class CreateEntry(CreateAPIView):
+    model = Entry
+    serializer_class = EntrySerializer
+
+    def post(self, request, *args, **kwargs):
+
+        book = request.data.get('book')
+        author = request.data.get('author')
+    
+        try:
+            instance = Entry.objects.get(book=book, author=author)
+
+        except:
+            book_instance = Book.objects.get(id=book)
+            author_instance = Author.objects.get(id=author)
+            entry = Entry(book=book_instance, author=author_instance)
+            entry.save()
+            return Response(
+                            data={
+                                f'{book_instance.book_name} is authored by':\
+                                f'{author_instance.first_name} {author_instance.last_name}'
+                                }, 
+                            status=status.HTTP_200_OK,
+                            )
+        if instance:
+            return Response(
+                            data={
+                                'Error':'The entry is already existing.'
+                                }, 
+                            status=status.HTTP_400_BAD_REQUEST,
+                            )
+  
+class ListEntries(ListAPIView):
+    queryset = Entry.objects.all()
+    serializer_class = EntrySerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['book', 'author']
+
+    def get_queryset(self):
+        return Entry.objects.all()
+
+    # Changing the returned response of the ListEntries View
+    # as we want that book_name and author's name should be 
+    # printed rather than their Id.
+    # def get(self, request, *args, **kwargs):
+    #     return self.list(request, *args, **kwargs)
+
+class DestroyEntry(DestroyAPIView):
+    queryset = Entry.objects.all()
+    lookup_field = 'id' # To  be thought of
+    serializer_class = EntrySerializer
+
+class RetreiveEntry(RetrieveAPIView):
+    queryset = Entry.objects.all()
+    lookup_field = 'id'
+    serializer_class = EntrySerializer
+
+class UpdateEntry(UpdateAPIView):
+    queryset = Entry.objects.all()
+    lookup_field = 'id'
+    serializer_class = EntrySerializer
+
+class RetrieveUpdateDestroyEntry(RetrieveUpdateDestroyAPIView):
+    queryset = Entry.objects.all()
+    lookup_field = 'id'
+    serializer_class = EntrySerializer
