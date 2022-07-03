@@ -2,7 +2,7 @@
 
 A Librarian's API, as the title suggests, is created to help a Librarian who wants to keep the record of the incoming books in the Library, track the authors of those books, and create entries by entering the book and its corresponding authors when a new book is received.
 
-We are helping the Librarian, in the best way possible by Defining the Database Relationship after listening to his problem, and then creating API endpoints using Django REST Framework, so well that he'd be taken care of, for all of his library proper classification of authors', books' and entries' issues.
+We are helping the Librarian, in the best way possible by Defining the Database Relationship after listening to his problem, and then creating API endpoints using Django REST Framework so well, that he'd be taken care of, for all of his library proper classification of authors', books' and entries' issues.
 
 We've created endpoints so that the Librarian of our town will be able to :-
 
