@@ -1,0 +1,31 @@
+version: "3.9"
+   
+services:
+
+  db:
+    image: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data # Named Volume for keeping the data persistent.
+    environment: # Setting up the postgres database by setting the variables.
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+
+  librarian_api:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    command: > # Making sure that the inside the container the app runs on 8000th port.
+        bash -c "python manage.py makemigrations 
+        && python manage.py migrate 
+        && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/code
+    ports: # Exposing the 8000th port to the local machine's 8000th port.
+      - "8000:8000"
+    depends_on: # Since, this image depends on the postgres image defined and configured above.
+      - db
+
+
+volumes: # Mentioning all the volumes of this particular docker-compose.yaml file
+  pgdata:

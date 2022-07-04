@@ -12,3 +12,31 @@ We've created endpoints so that the Librarian of our town will be able to :-
 - List Books, List Authors, List the Entries and also filter them on the whatever basis he wants, for e.g. Category of books, First Name of the Authors etc.
 - Delete Books, Authors that are no more now a part of the Library Stock, and the corresponding Entries will be automatically deleted. (As, Books and Authors are Foreign Keys of the Entries' table in Database).
 
+## To Run the API in your machine 
+
+- Please clone the repository by running "git clone https://github.com/Patel27-S/Librarian-API.git" command in a location of your machine.
+- If you've Docker installed on your machine, please run "docker-compose up --build", in the same directory as the 'docker-compose.yaml' file in your machine's CLI.
+- Without docker installed, please install the dependencies for this application by running "pip insall -r requirements.txt".
+- Then, as being a good practice, it's always recommended to run migrations by running the commands : "python manage.py makemigrations", "python manage.py migrate".
+- Note :- Without Docker, you'd want to install Postgres on your machine and configure its Username, Password details and use the same for configuring Database in the settings.py file. For SQLite, simply uncomment the part for SQLite part that has been commented and comment the Postgres Database configuration part in settings.py file.
+- Run, "python manage.py runserver" to have the API running on your localhost.
+
+
+## API endpoints :-
+
+### Book API Endpoints :-
+'create_book/' - To create a book instance.
+'list_books/' - To list all the books.
+'rud_book/<str:book_name>/' - To list a single book instance, update and destroy it.
+
+### Author API Endpoints :-
+'create_author/' - To create an author instance.
+'list_authors/' - To list all the authors.
+'rud_author/<int:id>/' - To list, update, destroy a single author's instance.
+
+### Author API Endpoints :-
+'create_entry/' - To create new entries for books and its respective authors.
+'list_entries/' - To list all the entries.
+'rud_entry/<int:id>/' - To list, update and destroy an entry.
+
+

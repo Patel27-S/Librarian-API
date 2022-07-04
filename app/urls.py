@@ -1,6 +1,10 @@
 from django.urls import path
 
-from app.views import CreateAuthor, CreateBook, CreateEntry, DestroyAuthor, DestroyBook, DestroyEntry, ListAuthors, ListBooks, ListEntries, RetreiveAuthor, RetreiveBook, RetreiveEntry, RetrieveUpdateDestroyAuthor, RetrieveUpdateDestroyBook, RetrieveUpdateDestroyEntry, UpdateAuthor, UpdateBook, UpdateEntry
+from app.views import (
+                        CreateAuthor, CreateBook, CreateEntry, ListAuthors, \
+                        ListBooks, ListEntries, RetrieveUpdateDestroyAuthor, \
+                        RetrieveUpdateDestroyBook, RetrieveUpdateDestroyEntry
+                      )
 
 urlpatterns = [
 
