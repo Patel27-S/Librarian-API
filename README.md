@@ -25,18 +25,18 @@ We've created endpoints so that the Librarian of our town will be able to :-
 ## API endpoints :-
 
 ### Book API Endpoints :-
-'create_book/' - To create a book instance.
-'list_books/' - To list all the books.
+'create_book/' - To create a book instance. <br>
+'list_books/' - To list all the books. <br>
 'rud_book/<str:book_name>/' - To list a single book instance, update and destroy it.
 
 ### Author API Endpoints :-
-'create_author/' - To create an author instance.
-'list_authors/' - To list all the authors.
+'create_author/' - To create an author instance. <br>
+'list_authors/' - To list all the authors. <br>
 'rud_author/<int:id>/' - To list, update, destroy a single author's instance.
 
-### Author API Endpoints :-
-'create_entry/' - To create new entries for books and its respective authors.
-'list_entries/' - To list all the entries.
+### Entry API Endpoints :-
+'create_entry/' - To create new entries for books and its respective authors. <br>
+'list_entries/' - To list all the entries. <br>
 'rud_entry/<int:id>/' - To list, update and destroy an entry.
 
 
