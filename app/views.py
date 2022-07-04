@@ -11,20 +11,12 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 from rest_framework import status
 
+
 # Books Views :-
-
-# The librarian should be able to create a new book in the libary's record.
-# If the author is new then he should be able to add that author's info in the database as well.
-# For a new book, he definitely has to add entries in the database.
-
 class CreateBook(CreateAPIView):
     model = Book
     serializer_class = BookSerializer
 
-    # Overriding the create() method so that the same book is not
-    # entered twice by the Librarian in the database and also
-    # so that he doesn't have to manually check it, even through
-    # the filtering options.
     def create(self, request, *args, **kwargs):
 
         book_name = request.data.get('book_name')
@@ -32,8 +24,7 @@ class CreateBook(CreateAPIView):
         if instance:
             raise ValidationError({'book':'The same book has been already added. Please check.'})
         else:
-            return super().create(request, *args, **kwargs)
-        
+            return super().create(request, *args, **kwargs) 
 
 
 class ListBooks(ListAPIView):
@@ -48,21 +39,6 @@ class ListBooks(ListAPIView):
         return Book.objects.all()
 
 
-class DestroyBook(DestroyAPIView):
-    queryset = Book.objects.all()
-    lookup_field = 'book_name'
-    serializer_class = BookSerializer
-
-class RetreiveBook(RetrieveAPIView):
-    queryset = Book.objects.all()
-    lookup_field = 'book_name'
-    serializer_class = BookSerializer
-
-class UpdateBook(UpdateAPIView):
-    queryset = Book.objects.all()
-    lookup_field = 'book_name'
-    serializer_class = BookSerializer
-
 class RetrieveUpdateDestroyBook(RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     lookup_field = 'book_name'
@@ -73,21 +49,6 @@ class RetrieveUpdateDestroyBook(RetrieveUpdateDestroyAPIView):
 class CreateAuthor(CreateAPIView):
     model = Author
     serializer_class = AuthorSerializer
-
-    # Overriding the create() method so that the same book is not
-    # entered twice by the Librarian in the database and also
-    # so that he doesn't have to manually check it, even through
-    # the filtering options.
-    # def create(self, request, *args, **kwargs):
-
-    #     first_name = request.data.get('first_name')
-    #     last_name = request.data.get('last_name')
-    #     email = request.data.get('email')
-    #     instance = Author.objects.filter(first_name= first_name, last_name= last_name, email = email)
-    #     if instance:
-    #         raise ValidationError({'author':'The same author has been already added. Please check.'})
-    #     else:
-    #         return super().create(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
 
@@ -126,20 +87,6 @@ class ListAuthors(ListAPIView):
     def get_queryset(self):
         return Author.objects.all()
 
-class DestroyAuthor(DestroyAPIView):
-    queryset = Author.objects.all()
-    lookup_field = 'id' # To  be thought of
-    serializer_class = AuthorSerializer
-
-class RetreiveAuthor(RetrieveAPIView):
-    queryset = Author.objects.all()
-    lookup_field = 'id'
-    serializer_class = AuthorSerializer
-
-class UpdateAuthor(UpdateAPIView):
-    queryset = Author.objects.all()
-    lookup_field = 'id'
-    serializer_class = AuthorSerializer
 
 class RetrieveUpdateDestroyAuthor(RetrieveUpdateDestroyAPIView):
     queryset = Author.objects.all()
@@ -148,7 +95,6 @@ class RetrieveUpdateDestroyAuthor(RetrieveUpdateDestroyAPIView):
 
 
 # Entry Views :-
-
 class CreateEntry(CreateAPIView):
     model = Entry
     serializer_class = EntrySerializer
@@ -190,26 +136,6 @@ class ListEntries(ListAPIView):
     def get_queryset(self):
         return Entry.objects.all()
 
-    # Changing the returned response of the ListEntries View
-    # as we want that book_name and author's name should be 
-    # printed rather than their Id.
-    # def get(self, request, *args, **kwargs):
-    #     return self.list(request, *args, **kwargs)
-
-class DestroyEntry(DestroyAPIView):
-    queryset = Entry.objects.all()
-    lookup_field = 'id' # To  be thought of
-    serializer_class = EntrySerializer
-
-class RetreiveEntry(RetrieveAPIView):
-    queryset = Entry.objects.all()
-    lookup_field = 'id'
-    serializer_class = EntrySerializer
-
-class UpdateEntry(UpdateAPIView):
-    queryset = Entry.objects.all()
-    lookup_field = 'id'
-    serializer_class = EntrySerializer
 
 class RetrieveUpdateDestroyEntry(RetrieveUpdateDestroyAPIView):
     queryset = Entry.objects.all()

@@ -12,8 +12,3 @@ We've created endpoints so that the Librarian of our town will be able to :-
 - List Books, List Authors, List the Entries and also filter them on the whatever basis he wants, for e.g. Category of books, First Name of the Authors etc.
 - Delete Books, Authors that are no more now a part of the Library Stock, and the corresponding Entries will be automatically deleted. (As, Books and Authors are Foreign Keys of the Entries' table in Database).
 
-
-### TO DO :-
-- We'll create a strong authentication system yet to make sure that no one other than the Librarian has the access to the Database of Library ;)
-- Dockerize the API app and write steps eventually, to have the project run without any hassle on any machine with Docker installed. AT the end ;);) 
-
