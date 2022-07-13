@@ -12,7 +12,7 @@ We've created endpoints so that the Librarian of our town will be able to :-
 - List Books, List Authors, List the Entries and also filter them on the whatever basis he wants, for e.g. Category of books, First Name of the Authors etc.
 - *<mark>**Delete Books, Authors that are no more now a part of the Library Stock, and the corresponding Entries will be automatically deleted**.</mark>* (As, Books and Authors are Foreign Keys of the Entries' table in Database).
 
-## To Run the API in your machine 
+## To Run the API on your machine 
 
 - Please clone the repository by running "git clone https://github.com/Patel27-S/Librarian-API.git" command in a location of your machine.
 - If you've Docker installed on your machine, please run "docker-compose up --build", in the same directory as the 'docker-compose.yaml' file in your machine's CLI.
